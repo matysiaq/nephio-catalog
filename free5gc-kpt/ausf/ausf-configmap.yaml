@@ -1,0 +1,23 @@
+# Source: free5gc/charts/ausf/templates/ausf-configmap.yaml
+#
+# Software Name : towards5gs-helm
+# SPDX-FileCopyrightText: Copyright (c) 2021 Orange
+# SPDX-License-Identifier: Apache-2.0
+#
+# This software is distributed under the Apache License 2.0,
+# the text of which is available at https://github.com/Orange-OpenSource/towards5gs-helm/blob/main/LICENSE
+# or see the "LICENSE" file for more details.
+#
+# Author: Abderaouf KHICHANE, Ilhem FAJJARI, Ayoub BOUSSELMI
+# Software description: An open-source project providing Helm charts to deploy 5G components (Core + RAN) on top of Kubernetes
+#
+apiVersion: v1
+kind: ConfigMap
+metadata: # kpt-merge: /ausf-configmap
+  name: ausf-configmap
+  labels:
+    app: free5gc
+  annotations:
+    internal.kpt.dev/upstream-identifier: '|ConfigMap|default|ausf-configmap'
+data:
+  ausfcfg.yaml: "info:\n  version: 1.0.2\n  description: AUSF initial local configuration\n\nconfiguration:\n  serviceNameList:\n    - nausf-auth\n  \n  sbi:\n    scheme: http\n    registerIPv4: ausf-nausf # IP used to register to NRF\n    bindingIPv4: 0.0.0.0  # IP used to bind the service\n    port: 80\n    tls:\n      key: config/TLS/ausf.key\n      pem: config/TLS/ausf.pem\n  \n  nrfUri: http://nrf-nnrf:8000\n  plmnSupportList:\n    - mcc: 208\n      mnc: 93\n    - mcc: 123\n      mnc: 45\n  groupId: ausfGroup001\n  eapAkaSupiImsiPrefix: false\n\nlogger:\n  AUSF:\n    ReportCaller: false\n    debugLevel: info\n"

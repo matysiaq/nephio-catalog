@@ -1,0 +1,22 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata: # kpt-merge: /free5gc-kpt
+  name: free5gc-kpt
+  annotations:
+    config.kubernetes.io/local-config: "true"
+    internal.kpt.dev/upstream-identifier: 'kpt.dev|Kptfile|default|free5gc-kpt'
+upstream:
+  type: git
+  git:
+    repo: https://github.com/matysiaq/kpt-packages-catalog.git
+    directory: free5gc-kpt
+    ref: free5gc-kpt/v3
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/matysiaq/kpt-packages-catalog.git
+    directory: free5gc-kpt
+    ref: free5gc-kpt/v3
+    commit: a92250a7a92e94da70d9817faac39ea29e809e03
+info:
+  description: this package represents free5gc NFs, which are required to perfirm E2E conn testing
