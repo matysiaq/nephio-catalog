@@ -1,0 +1,37 @@
+# Source: free5gc/charts/smf/templates/smf-configmap.yaml
+#
+# Software Name : towards5gs-helm
+# SPDX-FileCopyrightText: Copyright (c) 2021 Orange
+# SPDX-License-Identifier: Apache-2.0
+#
+# This software is distributed under the Apache License 2.0,
+# the text of which is available at https://github.com/Orange-OpenSource/towards5gs-helm/blob/main/LICENSE
+# or see the "LICENSE" file for more details.
+#
+# Author: Abderaouf KHICHANE, Ilhem FAJJARI, Ayoub BOUSSELMI
+# Software description: An open-source project providing Helm charts to deploy 5G components (Core + RAN) on top of Kubernetes
+#
+apiVersion: v1
+kind: ConfigMap
+metadata: # kpt-merge: /smf-configmap
+  name: smf-configmap
+  labels:
+    app: free5gc
+  annotations:
+    internal.kpt.dev/upstream-identifier: '|ConfigMap|default|smf-configmap'
+  namespace: free5gc-cp
+data:
+  smfcfg.yaml: "info:\n  version: 1.0.2\n  description: SMF initial local configuration\n\nconfiguration:\n  serviceNameList:\n    - nsmf-pdusession\n    - nsmf-event-exposure\n    - nsmf-oam\n  \n  sbi:\n    scheme: http\n    registerIPv4: smf-nsmf # IP used to register to NRF\n    bindingIPv4: 0.0.0.0  # IP used to bind the service\n    port: 80\n    tls:\n      key: config/TLS/smf.key\n      pem: config/TLS/smf.pem\n  \n  nrfUri: http://nrf-nnrf:8000\n\n  pfcp:\n    addr: 192.168.1.10\n  smfName: SMF\n  snssaiInfos:\n    - sNssai:\n        sst: 1\n        sd: 010203\n      dnnInfos: # DNN information list\n        - dnn: internet # Data Network Name\n          dns: # the IP address of DNS\n            ipv4: 8.8.8.8\n    - sNssai:\n        sst: 1\n        sd: 112233\n      dnnInfos: # DNN information list\n        - dnn: internet # Data Network Name\n          dns: # the IP address of DNS\n            ipv4: 8.8.8.8\n    - sNssai:\n        sst: 2\n        sd: 112234    \n      dnnInfos:\n        - dnn: internet\n          dns: \n            ipv4: 8.8.8.8\n  plmnList: # the list of PLMN IDs that this SMF belongs to (optional, remove this key when unnecessary)\n    - mcc: \"208\" # Mobile Country Code (3 digits string, digit: 0~9)\n      mnc: \"93\" # Mobile Network Code (2 or 3 digits string, digit: 0~9)\n  userplaneInformation: # list of userplane information\n    upNodes: # information of userplane node (AN or UPF)\n      gNB1: # the name of the node\n        type: AN # the type of the node (AN or UPF)\n      UPF:  # the name of the node\n        type: UPF # the type of the node (AN or UPF)\n        nodeID: 192.168.1.2 # the IP/FQDN of N4 interface on this UPF (PFCP)\n        sNssaiUpfInfos: # S-NSSAI information list for this UPF\n              - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)\n                  sst: 1 # Slice/Service Type (uinteger, range: 0~255)\n                  sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)\n                dnnUpfInfoList: # DNN information list for this S-NSSAI\n                  - dnn: internet\n                    pools:\n                      - cidr: 10.1.0.0/16\n        interfaces: # Interface list for this UPF\n              - interfaceType: N3 # the type of the interface (N3 or N9)\n                endpoints: # the IP address of this N3/N9 interface on this UPF\n                  - 10.0.0.2\n                networkInstance: internet # Data Network Name (DNN)\n    links: # the topology graph of userplane, A and B represent the two nodes of each link\n      - A: gNB1\n        B: UPF\n  locality: area1 # Name of the location where a set of AMF, SMF and UPFs are located\n\nlogger:\n  Aper:\n    ReportCaller: false\n    debugLevel: info\n  NAS:\n    ReportCaller: false\n    debugLevel: info\n  NGAP:\n    ReportCaller: false\n    debugLevel: info\n  PFCP:\n    ReportCaller: false\n    debugLevel: info\n  SMF:\n    ReportCaller: false\n    debugLevel: info\n"
+  uerouting.yaml: |
+    info:
+      version: 1.0.1
+      description: Routing information for UE
+    ueRoutingInfo:
+      UE1: # Group Name
+        members:
+        - imsi-208930000000003 # Subscription Permanent Identifier of the UE
+        topology: # Network topology for this group (Uplink: A->B, Downlink: B->A)
+        # default path derived from this topology
+        # node name should be consistent with smfcfg.yaml
+          - A: gNB1
+            B: UPF
