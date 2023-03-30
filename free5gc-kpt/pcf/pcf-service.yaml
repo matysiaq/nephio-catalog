@@ -24,6 +24,7 @@ metadata: # kpt-merge: /pcf-npcf
     nf: pcf
   annotations:
     internal.kpt.dev/upstream-identifier: '|Service|default|pcf-npcf'
+  namespace: free5gc-cp
 spec:
   type: ClusterIP
   ports:

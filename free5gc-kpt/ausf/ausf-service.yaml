@@ -25,6 +25,7 @@ metadata: # kpt-merge: /ausf-nausf
     nf: ausf
   annotations:
     internal.kpt.dev/upstream-identifier: '|Service|default|ausf-nausf'
+  namespace: free5gc-cp
 spec:
   type: ClusterIP
   ports:

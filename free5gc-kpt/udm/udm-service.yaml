@@ -24,6 +24,7 @@ metadata: # kpt-merge: /udm-nudm
     nf: udm
   annotations:
     internal.kpt.dev/upstream-identifier: '|Service|default|udm-nudm'
+  namespace: free5gc-cp
 spec:
   type: ClusterIP
   ports:

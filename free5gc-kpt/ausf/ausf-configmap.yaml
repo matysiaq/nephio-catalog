@@ -19,5 +19,6 @@ metadata: # kpt-merge: /ausf-configmap
     app: free5gc
   annotations:
     internal.kpt.dev/upstream-identifier: '|ConfigMap|default|ausf-configmap'
+  namespace: free5gc-cp
 data:
   ausfcfg.yaml: "info:\n  version: 1.0.2\n  description: AUSF initial local configuration\n\nconfiguration:\n  serviceNameList:\n    - nausf-auth\n  \n  sbi:\n    scheme: http\n    registerIPv4: ausf-nausf # IP used to register to NRF\n    bindingIPv4: 0.0.0.0  # IP used to bind the service\n    port: 80\n    tls:\n      key: config/TLS/ausf.key\n      pem: config/TLS/ausf.pem\n  \n  nrfUri: http://nrf-nnrf:8000\n  plmnSupportList:\n    - mcc: 208\n      mnc: 93\n    - mcc: 123\n      mnc: 45\n  groupId: ausfGroup001\n  eapAkaSupiImsiPrefix: false\n\nlogger:\n  AUSF:\n    ReportCaller: false\n    debugLevel: info\n"

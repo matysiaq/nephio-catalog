@@ -24,6 +24,7 @@ metadata: # kpt-merge: /free5gc-smf-smf
     nf: smf
   annotations:
     internal.kpt.dev/upstream-identifier: 'apps|Deployment|default|free5gc-smf-smf'
+  namespace: free5gc-cp
 spec:
   replicas: 1
   selector:

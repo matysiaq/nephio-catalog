@@ -25,6 +25,7 @@ metadata: # kpt-merge: /free5gc-ausf
     nf: ausf
   annotations:
     internal.kpt.dev/upstream-identifier: 'apps|Deployment|default|free5gc-ausf'
+  namespace: free5gc-cp
 spec:
   replicas: 1
   selector:

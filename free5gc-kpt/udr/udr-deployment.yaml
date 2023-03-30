@@ -24,6 +24,7 @@ metadata: # kpt-merge: /free5gc-udr-udr
     nf: udr
   annotations:
     internal.kpt.dev/upstream-identifier: 'apps|Deployment|default|free5gc-udr-udr'
+  namespace: free5gc-cp
 spec:
   replicas: 1
   selector:
