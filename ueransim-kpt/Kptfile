@@ -1,0 +1,26 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata: # kpt-merge: /ueransim-kpt
+  name: ueransim-kpt
+  annotations:
+    config.kubernetes.io/local-config: "true"
+    internal.kpt.dev/upstream-identifier: kpt.dev|Kptfile|default|ueransim-kpt
+upstream:
+  type: git
+  git:
+    repo: https://github.com/matysiaq/kpt-packages-catalog.git
+    directory: ueransim-kpt
+    ref: ueransim-kpt/v3
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/matysiaq/kpt-packages-catalog.git
+    directory: ueransim-kpt
+    ref: ueransim-kpt/v3
+    commit: 963e7a2b9489bfa017bb93c3fe1e521a1385d573
+info:
+  description: "this package represents ueransim NFs, which are required to perfirm E2E conn testing"
+pipeline:
+  mutators:
+  - image: gcr.io/kpt-fn/set-namespace:v0.4.1
+    configPath: set-namespace.yaml
